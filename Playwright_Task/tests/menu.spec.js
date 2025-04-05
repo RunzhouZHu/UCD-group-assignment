@@ -17,13 +17,21 @@ test("Main menu links should be validated", async () => {
     }
   await browser.close();
 });
-// Select the main menu item and Perform visual regression testing on the main menu
+
 test("Perform visual regression testing on the main menu", async ({ page }) => {
   await page.goto("https://www.ilry.fi/en/");
 
-  // Select the main menu item
   page.click("span.nav-toggle__text");
 
-  // Check that the URL has changed
-  await expect(page).toHaveScreenshot({ maxDiffPixels: 100 });
+  const menu = page.locator('nav[aria-label="Main menu"]');
+  await expect(menu).toBeVisible();
+
+  const dynamicElements = [
+    page.locator('span.b-changing-text__suffix.transition-out')
+  ];
+
+    await expect(menu).toHaveScreenshot({
+    mask: dynamicElements,
+    maxDiffPixels: 100
+  });
 });
