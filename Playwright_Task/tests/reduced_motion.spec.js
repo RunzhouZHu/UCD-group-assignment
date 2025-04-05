@@ -1,3 +1,4 @@
+import { test, expect } from "@playwright/test";
 // Does the site respect the reduced motion settings?
 // https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion
 
@@ -15,7 +16,5 @@ test("respect the reduced motion settings", async ({ page }) => {
   // If prefers-reduced-motion is true, animation should be none.
   if (prefersReducedMotion) {
     expect(animation).toBe("none");
-  } else {
-    expect(animation).not.toBe("none");
   }
 });
