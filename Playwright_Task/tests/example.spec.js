@@ -41,6 +41,7 @@ test("respect the reduced motion settings", async ({ page }) => {
   }
 });
 
+
 // write a test that checks if all links on the page are working
 test("check all links on the page are working", async ({ page }) => {
   await page.goto("https://www.ilry.fi/en/");
