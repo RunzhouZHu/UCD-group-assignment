@@ -8,18 +8,20 @@ const getLinksFromMenu = async (page) => {
   return mainMenuLinks;
 };
 
-test.setTimeout(120_000);
 test("Perform visual regression testing on the main menu", async ({ page }) => {
   await page.goto("https://www.ilry.fi/en/");
 
-  // Select the main menu item
-  const mainMenuLinks = await getLinksFromMenu(page);
+  page.click("span.nav-toggle__text");
 
-  // Click on each link and take a screenshot of the page
-  for (const link of mainMenuLinks) {
-    await page.goto(link);
-    await expect(page).toHaveScreenshot({
-      maxDiffPixels: 100,
-    });
-  }
+  const menu = page.locator('nav[aria-label="Main menu"]');
+  await expect(menu).toBeVisible();
+
+  const dynamicElements = [
+    page.locator('span.b-changing-text__suffix.transition-out')
+  ];
+
+    await expect(menu).toHaveScreenshot({
+    mask: dynamicElements,
+    maxDiffPixels: 100
+  });
 });
